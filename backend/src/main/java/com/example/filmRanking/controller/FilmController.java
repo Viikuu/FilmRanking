@@ -2,6 +2,7 @@ package com.example.filmRanking.controller;
 
 import com.example.filmRanking.domain.FilmEntity;
 import com.example.filmRanking.service.FilmService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,12 +33,12 @@ public class FilmController {
     }
 
     @PostMapping
-    public FilmEntity addFilm(@RequestBody FilmEntity film) {
+    public FilmEntity addFilm(@Valid @RequestBody FilmEntity film) {
         return filmService.createFilm(film);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<FilmEntity> updateFilm(@PathVariable Long id, @RequestBody FilmEntity filmDetails) {
+    public ResponseEntity<FilmEntity> updateFilm(@PathVariable Long id,@Valid @RequestBody FilmEntity filmDetails) {
         try {
             FilmEntity updatedFilm = filmService.updateFilm(id, filmDetails);
             return ResponseEntity.ok(updatedFilm);
