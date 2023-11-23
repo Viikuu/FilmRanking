@@ -1,4 +1,4 @@
-package com.example.filmRanking.service;
+package com.example.filmRanking.service.FilmService;
 
 import com.example.filmRanking.domain.FilmEntity;
 import java.util.List;

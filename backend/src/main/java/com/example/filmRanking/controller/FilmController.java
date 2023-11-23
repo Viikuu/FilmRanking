@@ -1,7 +1,7 @@
 package com.example.filmRanking.controller;
 
 import com.example.filmRanking.domain.FilmEntity;
-import com.example.filmRanking.service.FilmService;
+import com.example.filmRanking.service.FilmService.FilmService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
