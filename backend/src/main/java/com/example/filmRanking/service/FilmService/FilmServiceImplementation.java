@@ -5,6 +5,7 @@ import com.example.filmRanking.repository.FilmRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -47,6 +48,13 @@ public class FilmServiceImplementation implements FilmService {
     @Override
     public void deleteFilm(Long id) {
         filmRepository.deleteById(id);
+    }
+
+    @Override
+    public void validateReleaseYear(int releaseYear) {
+        if(releaseYear != 0 && ( releaseYear < 1895 || releaseYear > 2023 )) {
+            throw new IllegalArgumentException("Incorrect release year!");
+        }
     }
 
 }

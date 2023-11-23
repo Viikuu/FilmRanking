@@ -1,4 +1,4 @@
-package com.example.filmRanking.service;
+package com.example.filmRanking.service.UserService;
 
 import com.example.filmRanking.domain.UserEntity;
 

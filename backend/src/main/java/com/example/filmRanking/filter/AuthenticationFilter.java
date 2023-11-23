@@ -1,6 +1,6 @@
 package com.example.filmRanking.filter;
 
-import com.example.filmRanking.service.UserService;
+import com.example.filmRanking.service.UserService.UserService;
 import com.example.filmRanking.utils.TokenService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

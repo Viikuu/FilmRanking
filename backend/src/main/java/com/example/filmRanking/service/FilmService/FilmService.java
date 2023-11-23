@@ -15,4 +15,6 @@ public interface FilmService {
     FilmEntity updateFilm(Long id, FilmEntity filmDetails);
 
     void deleteFilm(Long id);
+
+    void validateReleaseYear(int releaseYear);
 }
