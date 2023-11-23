@@ -1,7 +1,7 @@
 package com.example.filmRanking.config;
 
 import com.example.filmRanking.filter.AuthenticationFilter;
-import com.example.filmRanking.service.UserService;
+import com.example.filmRanking.service.UserService.UserService;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

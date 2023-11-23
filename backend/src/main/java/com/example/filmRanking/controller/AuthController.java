@@ -1,7 +1,7 @@
 package com.example.filmRanking.controller;
 
 import com.example.filmRanking.domain.UserEntity;
-import com.example.filmRanking.service.UserService;
+import com.example.filmRanking.service.UserService.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
