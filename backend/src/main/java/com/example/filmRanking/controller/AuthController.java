@@ -2,6 +2,7 @@ package com.example.filmRanking.controller;
 
 import com.example.filmRanking.domain.UserEntity;
 import com.example.filmRanking.service.UserService.UserService;
+import com.example.filmRanking.utils.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,7 +28,7 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> loginUser(@RequestBody UserEntity request) {
+    public ResponseEntity<String> loginUser(@RequestBody UserEntity request) throws ResourceNotFoundException {
         String token = userService.loginUser(request.getUsername(), request.getPassword());
         return ResponseEntity.ok(token);
     }

@@ -5,6 +5,7 @@ import com.example.filmRanking.domain.FilmEntity;
 import com.example.filmRanking.repository.FilmRepository;
 import com.example.filmRanking.repository.UserRepository;
 import com.example.filmRanking.service.UserService.UserService;
+import com.example.filmRanking.utils.ResourceNotFoundException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -44,11 +45,11 @@ class FilmControllerTest {
     private String token;
 
     @BeforeEach
-    public void setup(){
+    public void setup() throws ResourceNotFoundException {
         token = obtainAccessToken();
     }
 
-    private String obtainAccessToken()   {
+    private String obtainAccessToken() throws ResourceNotFoundException {
         String username = "username";
         String password = "password";
         userService.registerUser(username, password);

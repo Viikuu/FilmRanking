@@ -2,6 +2,7 @@ package com.example.filmRanking.controller;
 
 import com.example.filmRanking.domain.FilmEntity;
 import com.example.filmRanking.service.FilmService.FilmService;
+import com.example.filmRanking.utils.ResourceNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -38,7 +39,7 @@ public class FilmController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<FilmEntity> updateFilm(@PathVariable Long id,@Valid @RequestBody FilmEntity filmDetails) {
+    public ResponseEntity<FilmEntity> updateFilm(@PathVariable Long id,@Valid @RequestBody FilmEntity filmDetails) throws ResourceNotFoundException {
         try {
             FilmEntity updatedFilm = filmService.updateFilm(id, filmDetails);
             return ResponseEntity.ok(updatedFilm);

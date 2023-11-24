@@ -1,6 +1,7 @@
 package com.example.filmRanking.service.RatingService;
 
 import com.example.filmRanking.domain.RatingEntity;
+import com.example.filmRanking.utils.ResourceNotFoundException;
 
 import java.util.List;
 import java.util.Optional;
@@ -13,9 +14,11 @@ public interface RatingService {
 
     List<RatingEntity> getAllRatings();
 
-    RatingEntity updateRating(Long id, RatingEntity ratingDetails);
+    RatingEntity updateRating(Long id, RatingEntity ratingDetails) throws ResourceNotFoundException;
 
     void deleteRating(Long id);
 
     void validateRating(RatingEntity rating);
+
+    void authenticateUser(long id, long userId);
 }

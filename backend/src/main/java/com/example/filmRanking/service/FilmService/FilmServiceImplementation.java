@@ -2,6 +2,7 @@ package com.example.filmRanking.service.FilmService;
 
 import com.example.filmRanking.domain.FilmEntity;
 import com.example.filmRanking.repository.FilmRepository;
+import com.example.filmRanking.utils.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -35,9 +36,9 @@ public class FilmServiceImplementation implements FilmService {
     }
 
     @Override
-    public FilmEntity updateFilm(Long id, FilmEntity filmDetails) {
+    public FilmEntity updateFilm(Long id, FilmEntity filmDetails) throws ResourceNotFoundException {
         FilmEntity film = filmRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Film not found for id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Film not found for id: " + id));
 
         film.setTitle(filmDetails.getTitle());
         film.setDescription(filmDetails.getDescription());

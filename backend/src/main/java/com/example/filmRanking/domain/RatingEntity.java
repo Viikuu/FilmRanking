@@ -26,4 +26,8 @@ public class RatingEntity {
     @ManyToOne
     @JoinColumn(name = "film", nullable = false)
     private FilmEntity film;
+
+    @ManyToOne
+    @JoinColumn(name = "user", nullable = false)
+    private UserEntity user;
 }

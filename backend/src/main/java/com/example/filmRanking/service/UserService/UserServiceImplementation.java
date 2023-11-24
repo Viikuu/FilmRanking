@@ -4,6 +4,7 @@ import com.example.filmRanking.domain.UserEntity;
 
 import com.example.filmRanking.repository.UserRepository;
 import com.example.filmRanking.utils.PasswordEncoderService;
+import com.example.filmRanking.utils.ResourceNotFoundException;
 import com.example.filmRanking.utils.TokenService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -42,7 +43,7 @@ public class UserServiceImplementation implements UserService {
     }
 
     @Override
-    public String loginUser(String username, String password) {
+    public String loginUser(String username, String password) throws ResourceNotFoundException {
         UserEntity user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new RuntimeException("User not found"));
         if (checkPassword(password, user)) {
@@ -51,7 +52,7 @@ public class UserServiceImplementation implements UserService {
             userRepository.save(user);
             return token;
         } else {
-            throw new RuntimeException("Password is incorrect");
+            throw new ResourceNotFoundException("Password is incorrect");
         }
     }
 

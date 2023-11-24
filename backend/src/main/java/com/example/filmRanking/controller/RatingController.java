@@ -1,7 +1,10 @@
 package com.example.filmRanking.controller;
 
 import com.example.filmRanking.domain.RatingEntity;
+import com.example.filmRanking.domain.UserEntity;
 import com.example.filmRanking.service.RatingService.RatingService;
+import com.example.filmRanking.utils.ResourceNotFoundException;
+import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,8 +23,9 @@ public class RatingController {
     }
 
     @PostMapping
-    public ResponseEntity<RatingEntity> createRating(@RequestBody RatingEntity rating) {
-
+    public ResponseEntity<RatingEntity> createRating(HttpServletRequest request, @RequestBody RatingEntity rating) {
+        UserEntity user = (UserEntity) request.getAttribute("authenticatedUser");
+        rating.setUser(user);
         return ResponseEntity.ok(ratingService.createRating(rating));
     }
 
@@ -38,8 +42,10 @@ public class RatingController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<RatingEntity> updateRating(@PathVariable Long id, @RequestBody RatingEntity ratingDetails) {
+    public ResponseEntity<RatingEntity> updateRating(HttpServletRequest request, @PathVariable Long id, @RequestBody RatingEntity ratingDetails) throws ResourceNotFoundException {
         try {
+            UserEntity user = (UserEntity) request.getAttribute("authenticatedUser");
+            ratingService.authenticateUser(ratingDetails.getUser().getId(), user.getId());
             RatingEntity updatedRating = ratingService.updateRating(id, ratingDetails);
             return ResponseEntity.ok(updatedRating);
         } catch (RuntimeException e) {

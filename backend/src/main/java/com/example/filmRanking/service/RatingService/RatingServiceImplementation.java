@@ -4,6 +4,7 @@ import com.example.filmRanking.domain.FilmEntity;
 import com.example.filmRanking.domain.RatingEntity;
 import com.example.filmRanking.repository.FilmRepository;
 import com.example.filmRanking.repository.RatingRepository;
+import com.example.filmRanking.utils.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -52,10 +53,10 @@ public class RatingServiceImplementation implements RatingService {
     }
 
     @Override
-    public RatingEntity updateRating(Long id, RatingEntity ratingDetails) {
+    public RatingEntity updateRating(Long id, RatingEntity ratingDetails) throws ResourceNotFoundException {
         validateRating(ratingDetails);
         RatingEntity rating = ratingRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Rating not found for id: " + id));
+                .orElseThrow(() -> new ResourceNotFoundException("Rating not found for id: " + id));
         rating.setRating(ratingDetails.getRating());
         RatingEntity updatedRating = ratingRepository.save(rating);
         updateFilmMeanRating(updatedRating.getFilm().getId());
@@ -75,5 +76,12 @@ public class RatingServiceImplementation implements RatingService {
     @Override
     public void validateRating(RatingEntity rating) {
         validateFilmEntity(rating.getFilm());
+    }
+
+    @Override
+    public void authenticateUser(long id, long userId) {
+        if (id != userId) {
+            throw new IllegalArgumentException("User is not authorized to update others ratings!");
+        }
     }
 }
