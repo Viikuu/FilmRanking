@@ -45,7 +45,8 @@ public class RatingController {
     public ResponseEntity<RatingEntity> updateRating(HttpServletRequest request, @PathVariable Long id, @RequestBody RatingEntity ratingDetails) throws ResourceNotFoundException {
         try {
             UserEntity user = (UserEntity) request.getAttribute("authenticatedUser");
-            ratingService.authenticateUser(ratingDetails.getUser().getId(), user.getId());
+            ratingDetails.setUser(user);
+
             RatingEntity updatedRating = ratingService.updateRating(id, ratingDetails);
             return ResponseEntity.ok(updatedRating);
         } catch (RuntimeException e) {

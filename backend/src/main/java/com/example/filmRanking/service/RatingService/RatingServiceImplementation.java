@@ -57,6 +57,8 @@ public class RatingServiceImplementation implements RatingService {
         validateRating(ratingDetails);
         RatingEntity rating = ratingRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Rating not found for id: " + id));
+        authenticateUser(ratingDetails.getUser().getId(), rating.getUser().getId());
+
         rating.setRating(ratingDetails.getRating());
         RatingEntity updatedRating = ratingRepository.save(rating);
         updateFilmMeanRating(updatedRating.getFilm().getId());
