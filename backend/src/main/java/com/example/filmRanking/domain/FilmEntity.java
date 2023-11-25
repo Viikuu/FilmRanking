@@ -1,5 +1,6 @@
 package com.example.filmRanking.domain;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.*;
 import lombok.Getter;
@@ -39,5 +40,6 @@ public class FilmEntity {
     private String posterUrl;
 
     @OneToMany(mappedBy = "film", cascade = CascadeType.ALL, orphanRemoval = true)
+    @JsonManagedReference
     private List<RatingEntity> ratings;
 }

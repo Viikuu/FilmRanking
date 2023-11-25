@@ -5,6 +5,7 @@ import com.example.filmRanking.service.FilmService.FilmService;
 import com.example.filmRanking.utils.ResourceNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -34,8 +35,8 @@ public class FilmController {
     }
 
     @PostMapping
-    public FilmEntity addFilm(@Valid @RequestBody FilmEntity film) {
-        return filmService.createFilm(film);
+    public ResponseEntity<FilmEntity> addFilm(@Valid @RequestBody FilmEntity film) {
+        return new ResponseEntity<>(filmService.createFilm(film), HttpStatus.CREATED);
     }
 
     @PutMapping("/{id}")

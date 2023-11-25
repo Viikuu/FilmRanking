@@ -1,5 +1,6 @@
 package com.example.filmRanking.domain;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
@@ -25,9 +26,10 @@ public class RatingEntity {
 
     @ManyToOne
     @JoinColumn(name = "film", nullable = false)
+    @JsonBackReference
     private FilmEntity film;
 
     @ManyToOne
-    @JoinColumn(name = "user", nullable = false)
+    @JoinColumn(name = "user_id", nullable = false)
     private UserEntity user;
 }
