@@ -43,6 +43,11 @@ public class AuthenticationFilter extends OncePerRequestFilter {
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
         String path = request.getRequestURI();
-        return path.startsWith("/auth/login") || path.startsWith("/auth/register");
+        String method = request.getMethod();
+
+        // Allow GET requests to /film and /ratings
+        return ("GET".equals(method) && (path.startsWith("/film") || path.startsWith("/ratings")))
+                || path.startsWith("/auth/login")
+                || path.startsWith("/auth/register");
     }
 }
