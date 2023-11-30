@@ -6,7 +6,6 @@ import com.example.filmRanking.utils.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -55,6 +54,13 @@ public class FilmServiceImplementation implements FilmService {
     public void validateReleaseYear(int releaseYear) {
         if(releaseYear != 0 && ( releaseYear < 1895 || releaseYear > 2023 )) {
             throw new IllegalArgumentException("Incorrect release year!");
+        }
+    }
+
+    @Override
+    public void validateFilmEntity(FilmEntity film) {
+        if (film == null || film.getId() == null || !filmRepository.existsById(film.getId())) {
+            throw new IllegalArgumentException("The associated film does not exist");
         }
     }
 

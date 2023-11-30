@@ -4,6 +4,8 @@ import com.example.filmRanking.domain.FilmEntity;
 import com.example.filmRanking.domain.RatingEntity;
 import com.example.filmRanking.repository.FilmRepository;
 import com.example.filmRanking.repository.RatingRepository;
+import com.example.filmRanking.service.FilmService.FilmService;
+import com.example.filmRanking.service.UserService.UserService;
 import com.example.filmRanking.utils.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,10 +18,14 @@ public class RatingServiceImplementation implements RatingService {
 
     private final RatingRepository ratingRepository;
     private final FilmRepository filmRepository;
+    private final FilmService filmService;
+    private final UserService userService;
     @Autowired
-    public RatingServiceImplementation(RatingRepository ratingRepository, FilmRepository filmRepository) {
+    public RatingServiceImplementation(RatingRepository ratingRepository, FilmRepository filmRepository, UserService userService, FilmService filmService) {
         this.ratingRepository = ratingRepository;
         this.filmRepository = filmRepository;
+        this.userService = userService;
+        this.filmService = filmService;
     }
 
     private void updateFilmMeanRating(Long filmId) {
@@ -57,7 +63,7 @@ public class RatingServiceImplementation implements RatingService {
         validateRating(ratingDetails);
         RatingEntity rating = ratingRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Rating not found for id: " + id));
-        authenticateUser(ratingDetails.getUser().getId(), rating.getUser().getId());
+        userService.authenticateUser(ratingDetails.getUser().getId(), rating.getUser().getId());
 
         rating.setRating(ratingDetails.getRating());
         RatingEntity updatedRating = ratingRepository.save(rating);
@@ -70,20 +76,9 @@ public class RatingServiceImplementation implements RatingService {
         ratingRepository.deleteById(id);
     }
 
-    private void validateFilmEntity(FilmEntity film) {
-        if (film == null || film.getId() == null || !filmRepository.existsById(film.getId())) {
-            throw new IllegalArgumentException("The associated film does not exist");
-        }
-    }
     @Override
     public void validateRating(RatingEntity rating) {
-        validateFilmEntity(rating.getFilm());
+        filmService.validateFilmEntity(rating.getFilm());
     }
 
-    @Override
-    public void authenticateUser(long id, long userId) {
-        if (id != userId) {
-            throw new IllegalArgumentException("User is not authorized to update others ratings!");
-        }
-    }
 }

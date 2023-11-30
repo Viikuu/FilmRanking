@@ -63,7 +63,7 @@ class FilmControllerTest {
     }
 
     @Test
-    void getOneFilm() throws Exception {
+    void returnOneFilm_whenGetOneFilm() throws Exception {
         FilmEntity testFilm = createTestFilm("Test Film", "Test Description", 2020, "Test Genre");
         Long testFilmId = testFilm.getId();
 
@@ -77,7 +77,7 @@ class FilmControllerTest {
                 .andExpect(jsonPath("$.genre", is("Test Genre")));
     }
     @Test
-    void getAllFilms() throws Exception {
+    void returnAllFilms_whenGetAllFilms() throws Exception {
         createTestFilm("Film 1", "Description 1", 2021, "Genre 1");
         createTestFilm("Film 2", "Description 2", 2022, "Genre 2");
 

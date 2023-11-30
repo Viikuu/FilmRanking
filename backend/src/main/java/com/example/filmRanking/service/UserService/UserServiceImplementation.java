@@ -65,5 +65,12 @@ public class UserServiceImplementation implements UserService {
         random.nextBytes(salt);
         return Base64.getEncoder().encodeToString(salt);
     }
+
+    @Override
+    public void authenticateUser(long id, long userId) {
+        if (id != userId) {
+            throw new IllegalArgumentException("User is not authorized to update others ratings!");
+        }
+    }
 }
 
