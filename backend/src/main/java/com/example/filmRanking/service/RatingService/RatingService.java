@@ -20,5 +20,5 @@ public interface RatingService {
 
     void validateRating(RatingEntity rating);
 
-    void authenticateUser(long id, long userId);
+
 }
