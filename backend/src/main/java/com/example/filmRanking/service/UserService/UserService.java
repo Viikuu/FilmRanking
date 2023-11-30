@@ -7,6 +7,6 @@ public interface UserService {
     void registerUser(String username, String password);
     boolean checkPassword(String rawPassword, UserEntity userEntity);
     String loginUser(String username, String password) throws ResourceNotFoundException;
-
     boolean existsByToken(String token);
+    void authenticateUser(long id, long userId);
 }
