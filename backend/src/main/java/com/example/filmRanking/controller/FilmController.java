@@ -3,6 +3,7 @@ package com.example.filmRanking.controller;
 import com.example.filmRanking.domain.FilmEntity;
 import com.example.filmRanking.service.FilmService.FilmService;
 import com.example.filmRanking.utils.ResourceNotFoundException;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/film")
+@Tag(name = "Film")
 public class FilmController {
 
     private final FilmService filmService;

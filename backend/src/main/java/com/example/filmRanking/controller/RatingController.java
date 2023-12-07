@@ -4,6 +4,7 @@ import com.example.filmRanking.domain.RatingEntity;
 import com.example.filmRanking.domain.UserEntity;
 import com.example.filmRanking.service.RatingService.RatingService;
 import com.example.filmRanking.utils.ResourceNotFoundException;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/ratings")
+@Tag(name = "Ratings")
 public class RatingController {
 
     private final RatingService ratingService;
